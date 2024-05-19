@@ -29,3 +29,43 @@ export const fetchAllFavourites = async (): Promise<Book[]> => {
         throw error;
     }
 };
+
+export const addToFavourites = async (book: Book) => {
+    try {
+        const response = await fetch(`${API_URL}/add-to-favourites`, {
+            method: "POST",
+            body: JSON.stringify(book),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        // const updatedBooks: Book[] = await response.json();
+        // return updatedBooks;
+    } catch (error) {
+        console.error("Failed to add to favourites: ", error);
+        throw error;
+    }
+};
+
+export const removeFromFavourites = async (book: Book) => {
+    try {
+        const response = await fetch(`${API_URL}/remove-from-favourites`, {
+            method: "DELETE",
+            body: JSON.stringify(book),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        // const updatedBooks: Book[] = await response.json();
+        // return updatedBooks;
+    } catch (error) {
+        console.error("Failed to remove from favourites: ", error);
+        throw error;
+    }
+};
