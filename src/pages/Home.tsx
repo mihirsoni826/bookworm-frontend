@@ -35,8 +35,10 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="container-sm w-3/4 mx-auto pt-20">
-            <Search placeholder="What books would you like to find?" />
+        <div className="container-sm w-3/4 mx-auto pt-20 h-screen">
+            <div className="w-3/4 pt-6">
+                <Search placeholder="What books would you like to find?" />
+            </div>
             <div className="pt-20" />
             <BookGallery
                 heading="New York Times Bestsellers"
@@ -47,24 +49,3 @@ export default function Home() {
         </div>
     );
 }
-
-/*
-    return (
-        <div className="flex">
-            <Sidebar />
-            <div className="flex-1 bg-icy-whisper font-sans">
-                <Titlebar />
-                <div className="container-sm w-3/4 mx-auto pt-20">
-                    <Search placeholder="What books would you like to find?" />
-                    <div className="pt-20" />
-                    <BookGallery
-                        heading="New York Times Bestsellers"
-                        books={bestsellers}
-                    />
-                    <div className="pt-14" />
-                    <BookGallery heading="Favourites" books={favourites} />
-                </div>
-            </div>
-        </div>
-    );
-*/
