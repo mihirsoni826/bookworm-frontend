@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { fetchAllBestsellers } from "../services/BookwormService";
 import Book from "../models/Book";
 
 const BookGallery = ({
@@ -9,40 +7,17 @@ const BookGallery = ({
     heading: string;
     books: Book[];
 }) => {
-    // const [books, setBooks] = useState<Book[]>([]);
-    // const [error, setError] = useState<string | null>(null);
-    // const [loading, setLoading] = useState<boolean>(true);
-
-    // useEffect(() => {
-    //     const loadBooks = async () => {
-    //         try {
-    //             const fetchedBooks = await fetchAllBestsellers();
-    //             setBooks(fetchedBooks);
-    //         } catch (err: any) {
-    //             setError(err.message);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-
-    //     loadBooks();
-    // }, []);
-
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
-
-    // if (error) {
-    //     return <div>Error: {error}</div>;
-    // }
-
+    function handleClick() {}
     return (
         <div>
             {books.length === 0 ? (
                 <div>No books found</div>
             ) : (
                 <>
-                    <h1 className="text-xl font-bold mb-3 text-midnight-indigo cursor-pointer hover:underline hover:underline-offset-8">
+                    <h1
+                        className="text-xl font-bold mb-3 text-midnight-indigo cursor-pointer hover:underline hover:underline-offset-8"
+                        onClick={handleClick}
+                    >
                         {heading}
                     </h1>
                     <div className="overflow-hidden w-full h-60">
@@ -56,7 +31,7 @@ const BookGallery = ({
                                         <img
                                             src={book.imageUrl}
                                             alt={`${book.title} by ${book.author}`}
-                                            className="w-auto h-60 mr-5 cursor-pointer hover:scale-95 hover:transition hover:duration-200 hover:ease-in-out"
+                                            className="w-auto h-60 mr-10 cursor-pointer hover:scale-95 hover:transition hover:duration-200 hover:ease-in-out"
                                         />
                                     </div>
                                 ))}

@@ -12,7 +12,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-3/4 rounded-l-full border-none py-3 pl-12 pr-20 text-sm"
+                    className="block w-full rounded-l-full border-none py-3 pl-12 pr-20 text-sm"
                     placeholder={placeholder}
                 />
                 <input
