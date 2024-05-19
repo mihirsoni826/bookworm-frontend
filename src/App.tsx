@@ -7,11 +7,11 @@ import Titlebar from "./components/Titlebar";
 
 const App = () => {
     return (
-        <div className="flex">
-            <Sidebar />
-            <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto">
-                <Titlebar />
-                <BrowserRouter>
+        <BrowserRouter>
+            <div className="flex">
+                <Sidebar />
+                <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto">
+                    <Titlebar />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/home" element={<Home />} />
@@ -20,9 +20,9 @@ const App = () => {
                             element={<NYTBestsellers />}
                         />
                     </Routes>
-                </BrowserRouter>
+                </div>
             </div>
-        </div>
+        </BrowserRouter>
     );
 };
 
