@@ -14,7 +14,7 @@ const App = () => {
             <BrowserRouter>
                 <div className="flex">
                     <Sidebar />
-                    <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto">
+                    <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto h-screen">
                         <Titlebar />
                         <Routes>
                             <Route path="/" element={<Home />} />
