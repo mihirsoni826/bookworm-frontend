@@ -55,7 +55,7 @@ const BookGallery = ({
                                     <img
                                         src={book.imageUrl}
                                         alt={`${book.title} by ${book.author}`}
-                                        className="w-auto h-60 mr-10 cursor-pointer hover:scale-95 hover:transition hover:duration-200 hover:ease-in-out"
+                                        className="w-auto h-60 mr-10 cursor-pointer transition ease-in-out hover:scale-95 duration-200"
                                     />
                                 </li>
                             ))}
