@@ -1,21 +1,45 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BookShelfBanner from "../assets/BookShelfBanner.png";
 import Book from "../models/Book";
-import { useEffect } from "react";
-import React from "react";
+import { useEffect, useRef } from "react";
 import { Rating } from "@material-tailwind/react";
+import { updateRatingAndPrice } from "../services/BookwormService";
+import { useNavigation } from "../context/NavigationProvider";
 
 const BookView = () => {
-    const { isbn } = useParams();
+    const { canAccess } = useNavigation();
     const location = useLocation();
     const book = location.state?.book as Book;
     const navigate = useNavigate();
+    const priceRef = useRef<HTMLInputElement>(null);
+    let newRating: number;
+
+    useEffect(() => {
+        if (!canAccess) {
+            navigate("/");
+        } else {
+            newRating = book.rating;
+            if (priceRef && priceRef.current)
+                priceRef.current.value = book.price.toString();
+        }
+    }, [canAccess, navigate]);
 
     function navigateToFavourites(): void {
         navigate("/favourites");
     }
 
-    return (
+    function updateRatingPrice(): void {
+        book.rating = newRating;
+        if (priceRef && priceRef.current)
+            book.price = parseInt(priceRef.current.value);
+        updateRatingAndPrice(book);
+    }
+
+    return !canAccess ? (
+        useEffect(() => {
+            navigate("/");
+        }, [])
+    ) : (
         <div className="container-sm w-2/3 mx-auto py-32 h-screen">
             <div className="flex flex-col">
                 <div className="h-72 w-full bg-[rgba(68, 68, 68, 1)] brightness-100 flex items-center justify-center text-center p-5">
@@ -43,10 +67,7 @@ const BookView = () => {
                             </label>
                             <input
                                 type="text"
-                                name="cost"
-                                id="cost"
-                                value={book.price + " GBP"}
-                                onChange={(e) => console.log(e.target.value)}
+                                ref={priceRef}
                                 className="w-full border-none pl-5"
                             />
                         </div>
@@ -60,14 +81,15 @@ const BookView = () => {
                             <div className="bg-white w-full pl-4 content-center font-light">
                                 <Rating
                                     value={book.rating}
-                                    onChange={(value) => console.log(value)}
+                                    onChange={(value) => (newRating = value)}
                                 />
                             </div>
                         </div>
                         <input
                             type="button"
                             value="UPDATE"
-                            className="w-1/5 bg-gradient-to-b from-b1 to-b2 text-white py-3 px-4 rounded-full mt-10 font-semibold"
+                            className="w-1/5 bg-gradient-to-b from-b1 to-b2 text-white py-3 px-4 rounded-full mt-10 font-semibold cursor-pointer"
+                            onClick={updateRatingPrice}
                         />
                     </form>
                     <div className="mt-16">

@@ -42,8 +42,6 @@ export const addToFavourites = async (book: Book) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        // const updatedBooks: Book[] = await response.json();
-        // return updatedBooks;
     } catch (error) {
         console.error("Failed to add to favourites: ", error);
         throw error;
@@ -62,14 +60,13 @@ export const removeFromFavourites = async (book: Book) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
-        // const updatedBooks: Book[] = await response.json();
-        // return updatedBooks;
     } catch (error) {
         console.error("Failed to remove from favourites: ", error);
         throw error;
     }
 };
 
+/*
 export const fetchBookFromIsbn = async (isbn: string) => {
     try {
         const response = await fetch(`${API_URL}/book/${isbn}`);
@@ -80,6 +77,25 @@ export const fetchBookFromIsbn = async (isbn: string) => {
         return book;
     } catch (error) {
         console.error("Failed to fetch book: ", error);
+        throw error;
+    }
+};
+*/
+
+export const updateRatingAndPrice = async (book: Book) => {
+    try {
+        const response = await fetch(`${API_URL}/update-rating-and-price`, {
+            method: "PUT",
+            body: JSON.stringify(book),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+    } catch (error) {
+        console.error("Failed to update rating and price: ", error);
         throw error;
     }
 };
