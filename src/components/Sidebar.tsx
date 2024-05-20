@@ -40,7 +40,7 @@ export default function Sidebar() {
                             className="h-6 w-6"
                         />
                     </div>
-                    <div className="hidden md:w-1/4 md:border-b md:pt-4" />
+                    <div className="hidden md:block md:w-1/4 md:border-b md:pt-4" />
                 </div>
                 <hr />
                 <div
@@ -58,7 +58,7 @@ export default function Sidebar() {
                             className="h-6 w-6"
                         />
                     </div>
-                    <div className="hidden md:w-1/4 md:border-b md:pt-4" />
+                    <div className="hidden md:block md:w-1/4 md:border-b md:pt-4" />
                 </div>
                 <div
                     className="px-5 h-18 cursor-pointer md:w-full md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)]"
