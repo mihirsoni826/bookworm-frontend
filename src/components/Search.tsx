@@ -21,7 +21,7 @@ export default function Search({
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-l-full border-none py-3 pl-12 pr-20 text-sm"
+                    className="block w-full rounded-l-full border-none py-3 pl-12 text-sm"
                     ref={searchRef}
                     placeholder={placeholder}
                     onKeyDown={(e) => {

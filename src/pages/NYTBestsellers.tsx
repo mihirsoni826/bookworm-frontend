@@ -15,6 +15,7 @@ const NYTBestsellers = () => {
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
 
+    // Load the initial bestsellers
     useEffect(() => {
         const loadBestsellers = async () => {
             try {
@@ -28,7 +29,7 @@ const NYTBestsellers = () => {
             }
         };
 
-        // Only load bestsellers if books are not already set
+        // fetch bestsellers from backend api if books were not passed from parent component
         if (!books || books.length === 0) {
             loadBestsellers();
         } else {
@@ -37,12 +38,13 @@ const NYTBestsellers = () => {
         }
     }, []);
 
+    // update bestsellers list depending on search key
     useEffect(() => {
         setBestsellers((bestsellers) => {
             // if search key is empty, return the initial "complete" bestsellers
             if (searchKey === "") return OG_BESTSELLERS;
 
-            // otherwise filter out the books based on title or author starting with the search key
+            // otherwise filter out the books based on title or author which include search key
             return OG_BESTSELLERS.filter((book) => {
                 return (
                     book.title

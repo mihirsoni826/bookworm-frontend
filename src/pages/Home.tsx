@@ -31,7 +31,7 @@ export default function Home() {
                 const fetchedBooks = await fetchAllBestsellers();
                 setBestsellers(fetchedBooks);
                 OG_BESTSELLERS = fetchedBooks;
-                setLoadingBestSellers(fetchedBooks.length !== 0 ? false : true);
+                setLoadingBestSellers(false);
             } catch (err: any) {
                 console.log(err.message);
             }
@@ -42,7 +42,7 @@ export default function Home() {
                 const fetchedBooks = await fetchAllFavourites();
                 setFavourites(fetchedBooks);
                 OG_FAVOURITES = fetchedBooks;
-                setLoadingFavourites(fetchedBooks.length !== 0 ? false : true);
+                setLoadingFavourites(false);
             } catch (err: any) {
                 console.log(err.message);
             }
@@ -52,6 +52,7 @@ export default function Home() {
         loadFavourites();
     }, []);
 
+    // filter the books based on the search key
     useEffect(() => {
         setBestsellers((bestsellers) => {
             // if search key is empty, return the initial "complete" bestsellers
@@ -82,13 +83,14 @@ export default function Home() {
         });
     }, [searchKey]);
 
+    // update the search key when the user types in the search box
     function searchResults(key: string | undefined): void {
         if (key !== undefined) setSearchKey(key);
     }
 
     return (
-        <div className="container-sm w-3/4 mx-auto pt-20 h-screen">
-            <div className="w-3/4 pt-6">
+    <div className="container-sm w-3/4 mx-auto pt-20 h-screen">
+            <div className="w-full md:w-3/4 pt-6">
                 <Search
                     placeholder="What books would you like to find?"
                     onSearch={searchResults}
