@@ -1,5 +1,14 @@
+import { useRef } from "react";
 import Magnify from "../assets/magnify.svg";
-export default function Search({ placeholder }: { placeholder: string }) {
+export default function Search({
+    placeholder,
+    onSearch,
+}: {
+    placeholder: string;
+    onSearch: (key: string | undefined) => void;
+}) {
+    const searchRef = useRef<HTMLInputElement>(null);
+
     return (
         <div>
             <div className="relative mt-2 rounded-md shadow-sm flex flex-row">
@@ -13,12 +22,21 @@ export default function Search({ placeholder }: { placeholder: string }) {
                     name="price"
                     id="price"
                     className="block w-full rounded-l-full border-none py-3 pl-12 pr-20 text-sm"
+                    ref={searchRef}
                     placeholder={placeholder}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            onSearch(searchRef.current?.value);
+                        }
+                    }}
                 />
                 <input
                     type="button"
                     value="GO"
-                    className="bg-cool-mist rounded-r-full px-5 text-white"
+                    className="bg-cool-mist rounded-r-full px-5 text-white cursor-pointer"
+                    onClick={() => {
+                        onSearch(searchRef.current?.value);
+                    }}
                 />
             </div>
         </div>
