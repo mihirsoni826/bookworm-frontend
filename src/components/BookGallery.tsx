@@ -42,6 +42,8 @@ const BookGallery = ({
             </h1>
             {isLoading ? (
                 <div>Loading {path} books...</div>
+            ) : books.length === 0 ? (
+                <div>No {path} books found</div>
             ) : (
                 <div className="overflow-hidden w-full h-60">
                     <div className="flex flex-row flex-nowrap">
