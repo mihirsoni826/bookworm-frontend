@@ -69,3 +69,17 @@ export const removeFromFavourites = async (book: Book) => {
         throw error;
     }
 };
+
+export const fetchBookFromIsbn = async (isbn: string) => {
+    try {
+        const response = await fetch(`${API_URL}/book/${isbn}`);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const book: Book = await response.json();
+        return book;
+    } catch (error) {
+        console.error("Failed to fetch book: ", error);
+        throw error;
+    }
+};

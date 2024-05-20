@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import BookListCard from "../components/BookListCard";
 import Search from "../components/Search";
 import Book from "../models/Book";
-import { fetchAllBestsellers } from "../services/BookwormService";
 import { useLocation } from "react-router-dom";
-import BookListCard from "../components/BookListCard";
+import { fetchAllFavourites } from "../services/BookwormService";
 
-const NYTBestsellers = () => {
-    const [bestsellers, setBestsellers] = useState<Book[]>([]);
+const Favourites = () => {
+    const [favourites, setFavourites] = React.useState<Book[]>([]);
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
 
     useEffect(() => {
-        const loadBestsellers = async () => {
+        const loadFavourites = async () => {
             try {
                 if (!books || books.length === 0) {
-                    const fetchedBooks = await fetchAllBestsellers();
-                    setBestsellers(fetchedBooks);
+                    const fetchedBooks = await fetchAllFavourites();
+                    setFavourites(fetchedBooks);
                 }
             } catch (err) {
                 console.log(err);
@@ -24,34 +24,27 @@ const NYTBestsellers = () => {
 
         // Only load bestsellers if books are not already set
         if (!books || books.length === 0) {
-            loadBestsellers();
-        } else setBestsellers(books);
+            loadFavourites();
+        } else setFavourites(books);
     }, []);
 
     const handleFavoriteStatusChange = (updatedBook: Book) => {
-        // Update the list of bestsellers to reflect the change in favorite status
-        const updatedBestsellers = bestsellers.map((book) => {
-            if (book.isbn === updatedBook.isbn) {
-                return updatedBook; // Update the book with the new favorite status
-            }
-            return book;
-        });
-        setBestsellers(updatedBestsellers);
+        console.log("Favourites.tsx - callback called", updatedBook);
     };
 
     return (
-        <div className="container-sm w-2/3 mx-auto py-32">
+        <div className="container-sm w-2/3 mx-auto py-32 h-screen">
             <h1 className="text-xl font-bold mb-12 text-midnight-indigo">
-                New York Times Bestsellers
+                Favourites
             </h1>
             <Search placeholder="Search" />
-            <div className="pt-10" />
+            <div className="pt-20" />
             <div className="flex flex-col">
-                {bestsellers.length === 0 ? (
-                    <div>No books found</div>
+                {favourites.length === 0 ? (
+                    <div>No favourties added yet</div>
                 ) : (
                     <ul className="space-y-5 ">
-                        {bestsellers.map((book) => (
+                        {favourites.map((book) => (
                             <>
                                 <BookListCard
                                     book={book}
@@ -68,4 +61,4 @@ const NYTBestsellers = () => {
     );
 };
 
-export default NYTBestsellers;
+export default Favourites;

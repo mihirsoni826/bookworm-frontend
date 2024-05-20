@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import NYTBestsellers from "./pages/NYTBestsellers";
 import Sidebar from "./components/Sidebar";
 import Titlebar from "./components/Titlebar";
+import Favourites from "./pages/Favourites";
+import BookView from "./pages/BookView";
 
 const App = () => {
     return (
@@ -19,6 +21,8 @@ const App = () => {
                             path="/bestsellers"
                             element={<NYTBestsellers />}
                         />
+                        <Route path="/favourites" element={<Favourites />} />
+                        <Route path="/book/:isbn" element={<BookView />} />
                     </Routes>
                 </div>
             </div>

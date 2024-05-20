@@ -43,9 +43,14 @@ export default function Home() {
             <BookGallery
                 heading="New York Times Bestsellers"
                 books={bestsellers}
+                path="bestsellers"
             />
             <div className="pt-14" />
-            <BookGallery heading="Favourites" books={favourites} />
+            <BookGallery
+                heading="Favourites"
+                books={favourites}
+                path="favourites"
+            />
         </div>
     );
 }

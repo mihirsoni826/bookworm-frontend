@@ -4,6 +4,9 @@ module.exports = withMT({
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            backgroundImage: {
+                "book-shelf-banner": "url('src/assets/BookShelfBanner.png')",
+            },
             colors: {
                 "cool-mist": "#93B4BC",
                 "midnight-indigo": "#454664",
