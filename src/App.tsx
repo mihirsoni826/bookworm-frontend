@@ -6,27 +6,33 @@ import Sidebar from "./components/Sidebar";
 import Titlebar from "./components/Titlebar";
 import Favourites from "./pages/Favourites";
 import BookView from "./pages/BookView";
+import { NavigationProvider } from "./context/NavigationProvider";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <div className="flex">
-                <Sidebar />
-                <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto">
-                    <Titlebar />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/home" element={<Home />} />
-                        <Route
-                            path="/bestsellers"
-                            element={<NYTBestsellers />}
-                        />
-                        <Route path="/favourites" element={<Favourites />} />
-                        <Route path="/book/:isbn" element={<BookView />} />
-                    </Routes>
+        <NavigationProvider>
+            <BrowserRouter>
+                <div className="flex">
+                    <Sidebar />
+                    <div className="flex-1 bg-icy-whisper font-sans overflow-y-auto">
+                        <Titlebar />
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/home" element={<Home />} />
+                            <Route
+                                path="/bestsellers"
+                                element={<NYTBestsellers />}
+                            />
+                            <Route
+                                path="/favourites"
+                                element={<Favourites />}
+                            />
+                            <Route path="/book/:isbn" element={<BookView />} />
+                        </Routes>
+                    </div>
                 </div>
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
+        </NavigationProvider>
     );
 };
 
