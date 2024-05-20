@@ -16,7 +16,7 @@ export default function Sidebar() {
         location.pathname.startsWith("/book");
 
     return (
-        <div className="h-16 flex flex-row inset-x-0 top-0 bg-midnight-indigo text-white items-center inset-y-0 left-0 fixed z-10 md:w-16 md:flex md:flex-col md:h-screen">
+        <div className="h-16 flex flex-row inset-x-0 top-0 bg-midnight-indigo text-white items-center inset-y-0 left-0 fixed z-50 md:w-16 md:flex md:flex-col md:h-screen">
             <div className="p-3 h-16 basis-1/7 content-center md:flex bg-cool-mist md:w-full md:items-center md:justify-center md:pb-3">
                 <img
                     src={avatar}
