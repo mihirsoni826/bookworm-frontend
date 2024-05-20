@@ -7,6 +7,7 @@ export default function Search({
     placeholder: string;
     onSearch: (key: string | undefined) => void;
 }) {
+    // ref to search input
     const searchRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -25,6 +26,7 @@ export default function Search({
                     ref={searchRef}
                     placeholder={placeholder}
                     onKeyDown={(e) => {
+                        // call onSearch function when enter key is pressed
                         if (e.key === "Enter") {
                             onSearch(searchRef.current?.value);
                         }

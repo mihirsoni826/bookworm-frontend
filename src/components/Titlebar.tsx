@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function Titlebar() {
     const navigate = useNavigate();
+
+    /**
+     * Navigate to the home page when the logo is clicked
+     */
     function navigateToHome(): void {
         navigate("/");
     }

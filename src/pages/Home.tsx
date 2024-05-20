@@ -7,7 +7,7 @@ import {
     fetchAllFavourites,
 } from "../services/BookwormService";
 
-// global variables to store the initial "complete" bestsellers and favourites books
+// global variables to store the initial "complete" bestsellers and favourites
 let OG_BESTSELLERS: Book[] = [];
 let OG_FAVOURITES: Book[] = [];
 
@@ -24,7 +24,10 @@ export default function Home() {
     const [loadingBestSellers, setLoadingBestSellers] = useState<boolean>(true);
     const [loadingFavourites, setLoadingFavourites] = useState<boolean>(true);
 
-    // execute once when the component is mounted to fetch the bestsellers and favourites
+    /**
+     * Fetch the bestsellers and favourites books from the server
+     * Executed once when the component is mounted
+     */
     useEffect(() => {
         const loadBestsellers = async () => {
             try {
@@ -52,10 +55,16 @@ export default function Home() {
         loadFavourites();
     }, []);
 
-    // filter the books based on the search key
+    /**
+     * Filter the books based on the search key
+     * Executed every time the search key changes
+     */
     useEffect(() => {
-        setBestsellers((bestsellers) => {
-            // if search key is empty, return the initial "complete" bestsellers
+        /**
+         * Set the bestsellers to be the initial "complete" bestsellers if the search key is empty
+         * otherwise filter the books on title and author including the search key
+         */
+        setBestsellers(() => {
             if (searchKey === "") return OG_BESTSELLERS;
 
             return OG_BESTSELLERS.filter((book) => {
@@ -68,8 +77,11 @@ export default function Home() {
             });
         });
 
-        setFavourites((favourites) => {
-            // if search key is empty, return the initial "complete" favourites
+        /**
+         * Set the favourites to be the initial "complete" favourites if the search key is empty
+         * otherwise filter the books on title and author including the search key
+         */
+        setFavourites(() => {
             if (searchKey === "") return OG_FAVOURITES;
 
             return OG_FAVOURITES.filter((book) => {
@@ -83,13 +95,17 @@ export default function Home() {
         });
     }, [searchKey]);
 
-    // update the search key when the user types in the search box
+    /**
+     * Callback function to update the search key when the user types in the search box
+     * Executed from within the Search component
+     * @param key - the search key
+     */
     function searchResults(key: string | undefined): void {
         if (key !== undefined) setSearchKey(key);
     }
 
     return (
-    <div className="container-sm w-3/4 mx-auto pt-20 h-screen">
+        <div className="container-sm w-3/4 mx-auto pt-20 h-screen">
             <div className="w-full md:w-3/4 pt-6">
                 <Search
                     placeholder="What books would you like to find?"
