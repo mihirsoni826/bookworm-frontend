@@ -45,8 +45,8 @@ const BookGallery = ({
             ) : books.length === 0 ? (
                 <div>No {path} books found</div>
             ) : (
-                <div className="overflow-hidden w-full h-60">
-                    <div className="flex flex-row flex-nowrap">
+                <div className="w-full h-60 overflow-hidden">
+                    <div className="flex whitespace-nowrap flex-row">
                         <ul>
                             {books.map((book) => (
                                 <li
@@ -57,7 +57,7 @@ const BookGallery = ({
                                     <img
                                         src={book.imageUrl}
                                         alt={`${book.title} by ${book.author}`}
-                                        className="w-auto h-60 mr-10 cursor-pointer transition ease-in-out hover:scale-95 duration-200"
+                                        className="w-auto h-60 mr-5 md:mr-10 cursor-pointer transition ease-in-out hover:scale-95 duration-200"
                                     />
                                 </li>
                             ))}
