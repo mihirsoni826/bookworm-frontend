@@ -26,9 +26,9 @@ export default function Sidebar() {
             </div>
             <div className="flex flex-row grow justify-end md:w-full md:flex md:flex-col md:flex-1 md:items-center md:justify-center md:bg-midnight-indigo md:pb-20">
                 <div
-                    className={`px-5 h-18 cursor-pointer md:w-full md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)] ${
+                    className={`px-5 h-18 cursor-pointer md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)] ${
                         isActiveStats
-                            ? "bg-gradient-to-b from-b1 to-b2 md:w-20 rounded-b-lg md:rounded-r-lg md:shadow-[0px_5px_15px_0px_rgba(61,76,108,1)]"
+                            ? "bg-gradient-to-b from-b1 to-b2 rounded-b-lg md:rounded-b-none md:rounded-r-lg md:rounded-br-lg md:w-20 md:shadow-[0px_5px_15px_0px_rgba(61,76,108,1)]"
                             : ""
                     }`}
                     onClick={() => navigate("/")}
@@ -40,13 +40,19 @@ export default function Sidebar() {
                             className="h-6 w-6"
                         />
                     </div>
-                    <div className="hidden md:block md:w-1/4 md:border-b md:pt-4" />
+                    <div
+                        className={`hidden md:block md:w-3/4 md:border-b md:pt-4 ${
+                            isActiveStats || isActiveFavourites
+                                ? "md:invisible"
+                                : ""
+                        } `}
+                    />
                 </div>
                 <hr />
                 <div
-                    className={`px-5 h-18 cursor-pointer md:w-full md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)] ${
+                    className={`px-5 h-18 cursor-pointer md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)] ${
                         isActiveFavourites
-                            ? "bg-gradient-to-b from-b1 to-b2 rounded-b-lg md:w-20 md:rounded-r-lg md:shadow-[0px_5px_15px_0px_rgba(61,76,108,1)]"
+                            ? "bg-gradient-to-b from-b1 to-b2 rounded-b-lg md:rounded-b-none md:rounded-r-lg md:rounded-br-lg md:w-20 md:shadow-[0px_5px_15px_0px_rgba(61,76,108,1)]"
                             : ""
                     }`}
                     onClick={() => navigate("/favourites")}
@@ -58,7 +64,11 @@ export default function Sidebar() {
                             className="h-6 w-6"
                         />
                     </div>
-                    <div className="hidden md:block md:w-1/4 md:border-b md:pt-4" />
+                    <div
+                        className={`hidden md:block md:w-3/4 md:border-b md:pt-4 ${
+                            isActiveFavourites ? "md:invisible" : ""
+                        } `}
+                    />
                 </div>
                 <div
                     className="px-5 h-18 cursor-pointer md:w-full md:flex md:flex-col md:items-center md:justify-center md:hover:w-20 md:hover:bg-gradient-to-b md:from-b1 md:to-b2 md:hover:rounded-r-lg md:hover:shadow-[0px_5px_15px_0px_rgba(61, 76, 108, 1)]"
@@ -71,7 +81,7 @@ export default function Sidebar() {
                             className="h-6 w-6"
                         />
                     </div>
-                    <div className="w-1/4 border-b pt-4" />
+                    <div className="w-3/4 border-b pt-4" />
                 </div>
             </div>
         </div>
