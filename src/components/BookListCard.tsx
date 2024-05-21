@@ -12,11 +12,18 @@ import { useNavigate } from "react-router-dom";
 import { useNavigation } from "../context/NavigationProvider";
 
 const BookListCard = ({ book }: { book: Book }) => {
+    // states
     const [currBook, setCurrBook] = React.useState(book);
     const [isFavourite, setIsFavourite] = React.useState(currBook.favourite);
-    const navigate = useNavigate();
-    const { setCanAccess } = useNavigation();
 
+    const navigate = useNavigate();
+    const { setCanAccess } = useNavigation(); // context provider to set the canAccess state
+
+    /**
+     * Handles the favourite button click.
+     * If the book is already favourited, removes it from the favourites list.
+     * Otherwise, adds it to the favourites list.
+     */
     const handleFavourite = () => {
         if (isFavourite) {
             removeFromFavourites(currBook);
@@ -27,6 +34,10 @@ const BookListCard = ({ book }: { book: Book }) => {
         setCurrBook({ ...currBook, favourite: !isFavourite });
     };
 
+    /**
+     * Navigates to the book view page
+     * @param book - the book to navigate to
+     */
     function navigateToBookView(book: Book): void {
         setCanAccess(true); // set the canAccess state to true to allow access to the book view page
         navigate("/book/" + book.isbn, { state: { book } });

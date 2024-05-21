@@ -14,20 +14,28 @@ const BookView = () => {
     const priceRef = useRef<HTMLInputElement>(null);
     let newRating: number;
 
+    /**
+     * If the user is allowed access, this method will set the new rating and price of the book.
+     *
+     */
     useEffect(() => {
-        if (!canAccess) {
-            navigate("/");
-        } else {
+        if (canAccess) {
             newRating = book.rating;
             if (priceRef && priceRef.current)
                 priceRef.current.value = book.price.toString();
         }
     }, [canAccess, navigate]);
 
+    /**
+     * Navigates to the favourites page
+     */
     function navigateToFavourites(): void {
         navigate("/favourites");
     }
 
+    /**
+     * Updates the rating and price of the book by calling the backend API.
+     */
     function updateRatingPrice(): void {
         book.rating = newRating;
         if (priceRef && priceRef.current)

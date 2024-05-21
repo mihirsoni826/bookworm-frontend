@@ -1,3 +1,6 @@
+/**
+ * Book interface definition
+ */
 export default interface Book {
     isbn: string;
     title: string;

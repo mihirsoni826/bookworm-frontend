@@ -8,11 +8,17 @@ import { fetchAllFavourites } from "../services/BookwormService";
 let OG_FAVOURITES: Book[] = [];
 
 const Favourites = () => {
+    // states
     const [favourites, setFavourites] = React.useState<Book[]>([]);
     const [searchKey, setSearchKey] = React.useState<string>("");
+
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
 
+    /**
+     * Load the initial favourites from the location object, if present otherwise fetch them from the server
+     * Executed once when the component is mounted
+     */
     useEffect(() => {
         const loadFavourites = async () => {
             try {
@@ -26,7 +32,7 @@ const Favourites = () => {
             }
         };
 
-        // Only load bestsellers if books are not already set
+        // fetch favourites from backend api if books were not passed from parent component
         if (!books || books.length === 0) {
             loadFavourites();
         } else {
@@ -35,8 +41,12 @@ const Favourites = () => {
         }
     }, []);
 
+    /**
+     * Update the favourites list depending on the search key matching the title or author
+     * Executed every time the search key changes
+     */
     useEffect(() => {
-        setFavourites((favourites) => {
+        setFavourites(() => {
             // if search key is empty, return the initial "complete" favourites
             if (searchKey === "") return OG_FAVOURITES;
 
@@ -51,10 +61,10 @@ const Favourites = () => {
         });
     }, [searchKey]);
 
-    const handleFavoriteStatusChange = (updatedBook: Book) => {
-        console.log("Favourites.tsx - callback called", updatedBook);
-    };
-
+    /**
+     * Sets the search key state when the search key changes
+     * @param key - the search key
+     */
     function searchResults(key: string | undefined): void {
         if (key !== undefined) setSearchKey(key);
     }
@@ -73,12 +83,7 @@ const Favourites = () => {
                     <ul className="space-y-5 ">
                         {favourites.map((book) => (
                             <li key={book.isbn}>
-                                <BookListCard
-                                    book={book}
-                                    onFavoriteStatusChange={
-                                        handleFavoriteStatusChange
-                                    }
-                                />
+                                <BookListCard book={book} />
                             </li>
                         ))}
                     </ul>

@@ -14,9 +14,11 @@ const BookGallery = ({
     isLoading: boolean;
 }) => {
     const navigate = useNavigate();
-    const { setCanAccess } = useNavigation();
+    const { setCanAccess } = useNavigation(); // context provider to set the canAccess state
 
-    // navigate to bestsellers or the favourites page based on the path prop
+    /**
+     * Function to navigate to the bestsellers or favourites page based on the path prop
+     */
     function handleClick(): void {
         if (path === "bestsellers")
             navigate("/bestsellers", {
@@ -26,7 +28,10 @@ const BookGallery = ({
             navigate("/favourites", { state: { books } });
     }
 
-    // navigate to the book view page when a book card is clicked
+    /**
+     * Function to navigate to the book view page when a book card is clicked
+     * @param book - the book object
+     */
     function navigateToBookView(book: Book): void {
         setCanAccess(true); // set the canAccess state to true to allow access to the book view page
         navigate("/book/" + book.isbn, { state: { book } });

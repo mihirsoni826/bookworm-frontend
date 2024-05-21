@@ -1,14 +1,25 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
+/**
+ * Interface for the navigation context
+ */
 interface NavigationContextType {
     canAccess: boolean;
     setCanAccess: (access: boolean) => void;
 }
 
+/**
+ * Context for the navigation provider
+ */
 const NavigationContext = createContext<NavigationContextType | undefined>(
     undefined
 );
 
+/**
+ * function to wrap the children in the NavigationProvider
+ * @param param0 the children
+ * @returns navigation context provider
+ */
 export const NavigationProvider = ({ children }: { children: ReactNode }) => {
     const [canAccess, setCanAccess] = useState(false);
 
@@ -19,6 +30,10 @@ export const NavigationProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+/**
+ * function to get the navigation context
+ * @returns the navigation context
+ */
 export const useNavigation = () => {
     const context = useContext(NavigationContext);
     if (!context) {

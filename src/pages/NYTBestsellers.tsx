@@ -15,7 +15,10 @@ const NYTBestsellers = () => {
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
 
-    // Load the initial bestsellers
+    /**
+     * Load the initial bestsellers from the location object, if present otherwise fetch them from the server
+     * Executed once when the component is mounted
+     */
     useEffect(() => {
         const loadBestsellers = async () => {
             try {
@@ -38,9 +41,12 @@ const NYTBestsellers = () => {
         }
     }, []);
 
-    // update bestsellers list depending on search key
+    /**
+     * Update the bestsellers list depending on the search key matching the title or author
+     * Executed every time the search key changes
+     */
     useEffect(() => {
-        setBestsellers((bestsellers) => {
+        setBestsellers(() => {
             // if search key is empty, return the initial "complete" bestsellers
             if (searchKey === "") return OG_BESTSELLERS;
 
@@ -56,17 +62,10 @@ const NYTBestsellers = () => {
         });
     }, [searchKey]);
 
-    const handleFavoriteStatusChange = (updatedBook: Book) => {
-        // Update the list of bestsellers to reflect the change in favorite status
-        const updatedBestsellers = bestsellers.map((book) => {
-            if (book.isbn === updatedBook.isbn) {
-                return updatedBook; // Update the book with the new favorite status
-            }
-            return book;
-        });
-        setBestsellers(updatedBestsellers);
-    };
-
+    /**
+     * Sets the search key state when the search key changes
+     * @param key - the search key
+     */
     function searchResults(key: string | undefined): void {
         if (key !== undefined) setSearchKey(key);
     }
@@ -85,12 +84,7 @@ const NYTBestsellers = () => {
                     <ul className="space-y-5 ">
                         {bestsellers.map((book) => (
                             <li key={book.isbn}>
-                                <BookListCard
-                                    book={book}
-                                    onFavoriteStatusChange={
-                                        handleFavoriteStatusChange
-                                    }
-                                />
+                                <BookListCard book={book} />
                             </li>
                         ))}
                     </ul>
