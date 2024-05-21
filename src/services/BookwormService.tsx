@@ -1,7 +1,7 @@
 import Book from "../models/Book";
 
 // base url for the bookworm api from the env variables
-const API_URL = import.meta.env.VITE_BOOKWORK_INTERNAL_API_BASE_URL;
+const API_URL = import.meta.env.VITE_BOOKWORM_INTERNAL_API_BASE_URL;
 
 /**
  * Fetches all bestsellers from the bookworm api
