@@ -9,11 +9,13 @@ import {
     removeFromFavourites,
 } from "../services/BookwormService";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../context/NavigationProvider";
 
 const BookListCard = ({ book }: { book: Book }) => {
     const [currBook, setCurrBook] = React.useState(book);
     const [isFavourite, setIsFavourite] = React.useState(currBook.favourite);
     const navigate = useNavigate();
+    const { setCanAccess } = useNavigation();
 
     const handleFavourite = () => {
         if (isFavourite) {
@@ -26,6 +28,7 @@ const BookListCard = ({ book }: { book: Book }) => {
     };
 
     function navigateToBookView(book: Book): void {
+        setCanAccess(true); // set the canAccess state to true to allow access to the book view page
         navigate("/book/" + book.isbn, { state: { book } });
     }
 
