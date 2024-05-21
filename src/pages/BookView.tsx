@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import BookShelfBanner from "../assets/BookShelfBanner.png";
 import Book from "../models/Book";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Rating } from "@material-tailwind/react";
 import { updateRatingAndPrice } from "../services/BookwormService";
 import { useNavigation } from "../context/NavigationProvider";
@@ -9,10 +9,12 @@ import { useNavigation } from "../context/NavigationProvider";
 const BookView = () => {
     const { canAccess } = useNavigation();
     const location = useLocation();
-    const book = location.state?.book as Book;
+    const locationBook = location.state?.book as Book;
     const navigate = useNavigate();
     const priceRef = useRef<HTMLInputElement>(null);
     let newRating: number;
+
+    const [book, setBook] = useState(locationBook);
 
     /**
      * If the user is allowed access, this method will set the new rating and price of the book.
@@ -30,7 +32,7 @@ const BookView = () => {
      * Navigates to the favourites page
      */
     function navigateToFavourites(): void {
-        navigate("/favourites");
+        navigate("/favourites", { state: { book: book } });
     }
 
     /**
@@ -41,6 +43,9 @@ const BookView = () => {
         if (priceRef && priceRef.current)
             book.price = parseInt(priceRef.current.value);
         updateRatingAndPrice(book);
+        setBook(book);
+        if (book.favourite) navigateToFavourites();
+        else navigate("/bestsellers");
     }
 
     return !canAccess ? (
@@ -50,13 +55,13 @@ const BookView = () => {
     ) : (
         <div className="container-sm w-2/3 mx-auto py-32 h-screen">
             <div className="flex flex-col">
-                <div className="h-72 w-full bg-[rgba(68, 68, 68, 1)] brightness-100 flex items-center justify-center text-center p-5">
+                <div className="h-72 w-full bg-[rgba(68, 68, 68, 1)] brightness-100 flex items-center justify-center text-center p-2 md:p-5">
                     <img
                         src={BookShelfBanner}
                         alt="Bookshelf Banner"
                         className="absolute bg-[rgba(68, 68, 68, 1)] brightness-50 inset-0 w-full h-full object-cover object-center z-0"
                     />
-                    <p className="text-white text-5xl z-10">
+                    <p className="text-white text-3xl md:text-5xl z-10">
                         <span className="font-semibold">{book.title}</span>
                         <span> by {book.author}</span>
                     </p>
@@ -66,7 +71,7 @@ const BookView = () => {
                         Edit
                     </h1>
                     <form>
-                        <div className="flex flex-row w-1/2">
+                        <div className="flex flex-row w-full md:w-1/2">
                             <label
                                 htmlFor="cost"
                                 className="basis-1/3 bg-cool-mist text-white py-3 text-center"
@@ -79,7 +84,7 @@ const BookView = () => {
                                 className="w-full border-none pl-5"
                             />
                         </div>
-                        <div className="flex flex-row mt-10 w-1/2">
+                        <div className="flex flex-row mt-10 w-full md:w-1/2">
                             <label
                                 htmlFor="rating"
                                 className="basis-1/3 bg-cool-mist text-white py-3 text-center font-light"
@@ -96,11 +101,11 @@ const BookView = () => {
                         <input
                             type="button"
                             value="UPDATE"
-                            className="w-1/5 bg-gradient-to-b from-b1 to-b2 text-white py-3 px-4 rounded-full mt-10 font-semibold cursor-pointer"
+                            className="w-3/5 md:w-1/5 bg-gradient-to-b from-b1 to-b2 text-white py-3 px-4 rounded-full mt-10 font-semibold cursor-pointer"
                             onClick={updateRatingPrice}
                         />
                     </form>
-                    <div className="mt-16">
+                    <div className="my-16">
                         <p>
                             <span className="text-4xl text-midnight-indigo">
                                 &#10229;&nbsp;

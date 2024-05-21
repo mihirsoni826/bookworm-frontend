@@ -14,6 +14,7 @@ const Favourites = () => {
 
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
+    const book = location.state?.book as Book;
 
     /**
      * Load the initial favourites from the location object, if present otherwise fetch them from the server
@@ -60,6 +61,17 @@ const Favourites = () => {
             });
         });
     }, [searchKey]);
+
+    useEffect(() => {
+        if (book) {
+            setFavourites(() => {
+                return OG_FAVOURITES.map((oldBook) => {
+                    if (oldBook.isbn === book.isbn) return book;
+                    return oldBook;
+                });
+            });
+        }
+    }, [book]);
 
     /**
      * Sets the search key state when the search key changes
