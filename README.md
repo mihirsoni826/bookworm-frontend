@@ -1,14 +1,11 @@
 <img src="readme_images/Bookworm banner.png" width="100%" height="auto">
 
-This React app servers as a frontend for the [Bookworm Backend API](https://github.com/mihirsoni826/bookworm-frontend).
+This React app serves as a frontend for the [Bookworm Backend API](https://github.com/mihirsoni826/bookworm-frontend).
 
-<br>
 
 # Try it out
 
 [Bookworm](https://bookworm-frontend-c2bc1357ec03.herokuapp.com/)
-
-<br>
 
 # Run locally
 
@@ -27,7 +24,6 @@ npm install
 ```bash
  npm run dev
 ```
-<br>
 
 # Tech Stack
 - [React](https://reactjs.org/)
