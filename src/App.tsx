@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar";
 import Titlebar from "./components/Titlebar";
 import Favourites from "./pages/Favourites";
 import BookView from "./pages/BookView";
+import NoPage from "./pages/NoPage";
 import { NavigationProvider } from "./context/NavigationProvider";
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
                                 element={<Favourites />}
                             />
                             <Route path="/book/:isbn" element={<BookView />} />
+                            <Route path="*" element={<NoPage />} />
                         </Routes>
                     </div>
                 </div>
