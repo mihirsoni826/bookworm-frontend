@@ -53,7 +53,7 @@ const BookView = () => {
         updateRatingAndPrice(book);
         setBook(book);
         if (book.favourite) navigateToFavourites();
-        else navigate("/bestsellers");
+        else navigate("/bestsellers", { state: { book: book } });
     }
 
     return (
@@ -64,7 +64,7 @@ const BookView = () => {
                         <img
                             src={BookShelfBanner}
                             alt="Bookshelf Banner"
-                            className="absolute bg-[rgba(68, 68, 68, 1)] brightness-50 inset-0 w-full h-full object-cover object-center z-0"
+                            className="absolute bg-[rgba(68, 68, 68, 1)] brightness-[0.2] inset-0 w-full h-full object-cover object-center z-0"
                         />
                         <p className="text-white text-3xl md:text-5xl z-10">
                             <span className="font-semibold">{book.title}</span>

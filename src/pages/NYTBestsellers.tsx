@@ -14,6 +14,7 @@ const NYTBestsellers = () => {
 
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
+    const book = location.state?.book as Book;
 
     /**
      * Load the initial bestsellers from the location object, if present otherwise fetch them from the server
@@ -61,6 +62,17 @@ const NYTBestsellers = () => {
             });
         });
     }, [searchKey]);
+
+    useEffect(() => {
+        if (book) {
+            setBestsellers(() => {
+                return OG_BESTSELLERS.map((oldBook) => {
+                    if (oldBook.isbn === book.isbn) return book;
+                    return oldBook;
+                });
+            });
+        }
+    }, [book]);
 
     /**
      * Sets the search key state when the search key changes
