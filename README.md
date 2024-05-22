@@ -1,6 +1,6 @@
 <img src="readme_images/Bookworm banner.png" width="100%" height="auto">
 
-This React app serves as a frontend for the [Bookworm Backend API](https://github.com/mihirsoni826/bookworm-frontend).
+This React app serves as the frontend for the [Bookworm Backend API](https://github.com/mihirsoni826/bookworm-backend).
 
 
 # Try it out
