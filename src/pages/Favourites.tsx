@@ -11,6 +11,7 @@ const Favourites = () => {
     // states
     const [favourites, setFavourites] = React.useState<Book[]>([]);
     const [searchKey, setSearchKey] = React.useState<string>("");
+    const [error, setError] = React.useState<boolean>(false);
 
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
@@ -27,9 +28,11 @@ const Favourites = () => {
                     const fetchedBooks = await fetchAllFavourites();
                     setFavourites(fetchedBooks);
                     OG_FAVOURITES = fetchedBooks;
+                    setError(false);
                 }
             } catch (err) {
                 console.log(err);
+                setError(true);
             }
         };
 
@@ -39,6 +42,7 @@ const Favourites = () => {
         } else {
             setFavourites(books);
             OG_FAVOURITES = books;
+            setError(false);
         }
     }, []);
 
@@ -86,21 +90,27 @@ const Favourites = () => {
             <h1 className="text-xl font-bold mb-12 text-midnight-indigo">
                 Favourites
             </h1>
-            <Search placeholder="Search" onSearch={searchResults} />
-            <div className="pt-20" />
-            <div className="flex flex-col">
-                {favourites.length === 0 ? (
-                    <div>No favourties added yet</div>
-                ) : (
-                    <ul className="space-y-5 ">
-                        {favourites.map((book) => (
-                            <li key={book.isbn}>
-                                <BookListCard book={book} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            {error ? (
+                <div>Error fetching favourites</div>
+            ) : (
+                <div>
+                    <Search placeholder="Search" onSearch={searchResults} />
+                    <div className="pt-20" />
+                    <div className="flex flex-col">
+                        {favourites.length === 0 ? (
+                            <div>No favourties added yet</div>
+                        ) : (
+                            <ul className="space-y-5 ">
+                                {favourites.map((book) => (
+                                    <li key={book.isbn}>
+                                        <BookListCard book={book} />
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -11,6 +11,7 @@ const NYTBestsellers = () => {
     // states
     const [bestsellers, setBestsellers] = useState<Book[]>([]);
     const [searchKey, setSearchKey] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
 
     const location = useLocation();
     const books = location.state?.books as Book[] | undefined;
@@ -27,8 +28,10 @@ const NYTBestsellers = () => {
                     const fetchedBooks = await fetchAllBestsellers();
                     setBestsellers(fetchedBooks);
                     OG_BESTSELLERS = fetchedBooks;
+                    setError(false);
                 }
             } catch (err) {
+                setError(true);
                 console.log(err);
             }
         };
@@ -39,6 +42,7 @@ const NYTBestsellers = () => {
         } else {
             setBestsellers(books);
             OG_BESTSELLERS = books;
+            setError(false);
         }
     }, []);
 
@@ -87,21 +91,27 @@ const NYTBestsellers = () => {
             <h1 className="text-xl font-bold mb-12 text-midnight-indigo">
                 New York Times Bestsellers
             </h1>
-            <Search placeholder="Search" onSearch={searchResults} />
-            <div className="pt-10" />
-            <div className="flex flex-col">
-                {bestsellers.length === 0 ? (
-                    <div>No books found</div>
-                ) : (
-                    <ul className="space-y-5 ">
-                        {bestsellers.map((book) => (
-                            <li key={book.isbn}>
-                                <BookListCard book={book} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            {error ? (
+                <div>Error fetching bestsellers</div>
+            ) : (
+                <div>
+                    <Search placeholder="Search" onSearch={searchResults} />
+                    <div className="pt-10" />
+                    <div className="flex flex-col">
+                        {bestsellers.length === 0 ? (
+                            <div>No books found</div>
+                        ) : (
+                            <ul className="space-y-5 ">
+                                {bestsellers.map((book) => (
+                                    <li key={book.isbn}>
+                                        <BookListCard book={book} />
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

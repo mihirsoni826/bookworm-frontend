@@ -23,6 +23,8 @@ export default function Home() {
     const [searchKey, setSearchKey] = useState<string>("");
     const [loadingBestSellers, setLoadingBestSellers] = useState<boolean>(true);
     const [loadingFavourites, setLoadingFavourites] = useState<boolean>(true);
+    const [errorBestSellers, setErrorBestSellers] = useState<boolean>(false);
+    const [errorFavourites, setErrorFavourites] = useState<boolean>(false);
 
     /**
      * Fetch the bestsellers and favourites books from the server
@@ -36,6 +38,8 @@ export default function Home() {
                 OG_BESTSELLERS = fetchedBooks;
                 setLoadingBestSellers(false);
             } catch (err: any) {
+                setLoadingBestSellers(false);
+                setErrorBestSellers(true);
                 console.log(err.message);
             }
         };
@@ -47,6 +51,8 @@ export default function Home() {
                 OG_FAVOURITES = fetchedBooks;
                 setLoadingFavourites(false);
             } catch (err: any) {
+                setLoadingFavourites(false);
+                setErrorFavourites(true);
                 console.log(err.message);
             }
         };
@@ -118,6 +124,7 @@ export default function Home() {
                 books={bestsellers}
                 path="bestsellers"
                 isLoading={loadingBestSellers}
+                isError={errorBestSellers}
             />
             <div className="pt-14" />
             <BookGallery
@@ -125,6 +132,7 @@ export default function Home() {
                 books={favourites}
                 path="favourites"
                 isLoading={loadingFavourites}
+                isError={errorFavourites}
             />
         </div>
     );

@@ -7,11 +7,13 @@ const BookGallery = ({
     books,
     path,
     isLoading,
+    isError,
 }: {
     heading: string;
     books: Book[];
     path: string;
     isLoading: boolean;
+    isError: boolean;
 }) => {
     const navigate = useNavigate();
     const { setCanAccess } = useNavigation(); // context provider to set the canAccess state
@@ -46,9 +48,15 @@ const BookGallery = ({
                 {heading}
             </h1>
             {isLoading ? (
-                <div>Loading {path} books...</div>
+                <div>Loading {path}...</div>
+            ) : isError ? (
+                <div>Error fetching {path}</div>
             ) : books.length === 0 ? (
-                <div>No {path} books found</div>
+                path === "bestsellers" ? (
+                    <div>No {path} found</div>
+                ) : (
+                    <div>No favourties added yet</div>
+                )
             ) : (
                 <div className="w-full h-60 overflow-hidden">
                     <div className="flex whitespace-nowrap flex-row">
