@@ -52,6 +52,9 @@ const BookView = () => {
             book.price = parseInt(priceRef.current.value);
         updateRatingAndPrice(book);
         setBook(book);
+
+        // redirects to the favourites page if the book is a favourite, otherwise redirects to the bestsellers page
+        // ideally should navigate to the previous page
         if (book.favourite) navigateToFavourites();
         else navigate("/bestsellers", { state: { book: book } });
     }

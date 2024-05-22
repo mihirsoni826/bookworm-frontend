@@ -66,6 +66,9 @@ const Favourites = () => {
         });
     }, [searchKey]);
 
+    /**
+     * Updates the favourites list when the book is changed from the BookView page
+     */
     useEffect(() => {
         if (book) {
             setFavourites(() => {

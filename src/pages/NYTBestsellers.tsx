@@ -67,6 +67,9 @@ const NYTBestsellers = () => {
         });
     }, [searchKey]);
 
+    /**
+     * Updates the bestsellers list when the book is changed from the BookView page
+     */
     useEffect(() => {
         if (book) {
             setBestsellers(() => {
